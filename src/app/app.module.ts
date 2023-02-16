@@ -11,6 +11,7 @@ import { StatusComponent } from './components/status/status.component';
 import { ApplyComponent } from './components/apply/apply.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
+import * as userReducer from './stores/user.reducer';
 
 @NgModule({
   declarations: [
@@ -20,15 +21,15 @@ import { StoreModule } from '@ngrx/store';
     DashboardComponent,
     OpeningsComponent,
     StatusComponent,
-    ApplyComponent
+    ApplyComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({ user: userReducer.reducer }, {}),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
