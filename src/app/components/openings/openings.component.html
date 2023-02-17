@@ -1,1 +1,8 @@
-<p>openings works!</p>
+<div>
+  <h4>Current Openings</h4>
+  <ul>
+    <li *ngFor="let opening of openings; index as i" :id="i">
+      <a href="#">{{ opening.title }}</a>
+    </li>
+  </ul>
+</div>
