@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ApplyComponent } from './components/apply/apply.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { UserRegisterComponent } from './components/user-register/user-register.component';
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'login',
     redirectTo: '',
+  },
+  {
+    path: 'apply/:id',
+    component: ApplyComponent,
   },
 ];
 
