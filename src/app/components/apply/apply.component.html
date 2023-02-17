@@ -1,1 +1,22 @@
-<p>apply works!</p>
+<button [routerLink]="['/dashboard']" class="btn btn-warning">
+  Back to Openings
+</button>
+<hr />
+
+<div *ngIf="!opening">
+  <p>
+    Something went wrong, please try again, and contact admin if the issue
+    persists
+  </p>
+</div>
+
+<div *ngIf="opening">
+  <h3>{{ opening.title }}</h3>
+  <p>{{ opening.description }}</p>
+  <p>
+    <strong
+      >If you think you're a good fit, then fill in the form below, and hit the
+      submit button to apply</strong
+    >
+  </p>
+</div>
