@@ -7,16 +7,35 @@
       class="form-control"
       id="email"
       placeholder="name@example.com"
+      [(ngModel)]="email"
     />
   </div>
   <div class="mb-3 d-flex flex-wrap justify-content-center">
     <label for="password" class="form-label">Password</label>
-    <input type="password" class="form-control" id="password" placeholder="" />
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      placeholder=""
+      [(ngModel)]="password"
+    />
   </div>
   <div class="d-flex justify-content-between">
-    <button type="button" class="btn btn-primary flex-grow-1 me-3">
+    <button
+      (click)="loginClick()"
+      type="button"
+      class="btn btn-primary flex-grow-1 me-3"
+    >
       Login
     </button>
-    <button type="button" class="btn btn-primary flex-grow-1">Register</button>
+    <button
+      (click)="registerClick()"
+      type="button"
+      class="btn btn-primary flex-grow-1"
+    >
+      Register
+    </button>
+
+    <!-- {{ email }} {{ password }} -->
   </div>
 </div>
