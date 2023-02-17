@@ -8,7 +8,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let opening of openings; index as i" :id="i">
+      <tr
+        *ngFor="let opening of openings; index as i"
+        [id]="'opening-row-' + i"
+      >
         <td>{{ opening.title }}</td>
         <td>
           <a [routerLink]="['/apply/' + opening.id + '']">Show Details/Apply</a>
