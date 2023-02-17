@@ -27,5 +27,6 @@ export class UserLoginComponent {
 
   registerClick() {
     console.log('registerclick');
+    this.router.navigate(['register']);
   }
 }
