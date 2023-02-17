@@ -12,6 +12,7 @@ import { ApplyComponent } from './components/apply/apply.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import * as userReducer from './stores/user.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,15 @@ import * as userReducer from './stores/user.reducer';
     AppRoutingModule,
     NgbModule,
     StoreModule.forRoot({ user: userReducer.reducer }, {}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: false,
+      features: {
+        pause: false,
+        lock: true,
+        persist: true,
+      },
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
