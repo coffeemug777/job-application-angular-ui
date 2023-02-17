@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
+import { UserRegisterComponent } from './components/user-register/user-register.component';
 import { IsLoggedInGuard } from './guards/is-logged-in.guard';
 
 const routes: Routes = [
@@ -10,10 +11,17 @@ const routes: Routes = [
     component: UserLoginComponent,
     canActivate: [IsLoggedInGuard],
   },
-
   {
     path: 'dashboard',
     component: DashboardComponent,
+  },
+  {
+    path: 'register',
+    component: UserRegisterComponent,
+  },
+  {
+    path: 'login',
+    redirectTo: '',
   },
 ];
 
