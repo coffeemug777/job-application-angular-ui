@@ -9,11 +9,19 @@ import { UserInfo } from 'src/app/stores/user.reducer';
 })
 export class DashboardComponent {
   user: UserInfo | null = null;
+  currentComp = 'openings';
+
   constructor(private router: Router) {
     const routerExtraState = this.router.getCurrentNavigation()?.extras?.state;
     if (routerExtraState && routerExtraState['user']) {
       //console.log('wa ', routerExtraState['user']);
       this.user = routerExtraState['user'];
+    }
+  }
+
+  goto(comp: string) {
+    if (this.currentComp !== comp) {
+      this.currentComp = comp;
     }
   }
 }

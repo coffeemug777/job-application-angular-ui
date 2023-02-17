@@ -1,2 +1,15 @@
-<p>dashboard works!</p>
+<h2>Dashboard</h2>
+<div>
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" (click)="goto('openings')">Openings</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" (click)="goto('status')">Application Status</a>
+    </li>
+  </ul>
+</div>
+
+<app-openings *ngIf="currentComp === 'openings'"></app-openings>
+<app-status *ngIf="currentComp === 'status'"></app-status>
 {{ user | json }}
