@@ -1,10 +1,19 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserInfo } from 'src/app/stores/user.reducer';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
-
+  user: UserInfo | null = null;
+  constructor(private router: Router) {
+    const routerExtraState = this.router.getCurrentNavigation()?.extras?.state;
+    if (routerExtraState && routerExtraState['user']) {
+      //console.log('wa ', routerExtraState['user']);
+      this.user = routerExtraState['user'];
+    }
+  }
 }
