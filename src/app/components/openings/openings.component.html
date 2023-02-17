@@ -1,8 +1,23 @@
 <div>
   <h4>Current Openings</h4>
-  <ul>
-    <li *ngFor="let opening of openings; index as i" :id="i">
-      <a href="#">{{ opening.title }}</a>
-    </li>
-  </ul>
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>&nbsp;</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let opening of openings; index as i" :id="i">
+        <td>{{ opening.title }}</td>
+        <td><a href="#">Show Details</a></td>
+        <td>
+          <a href="#">Apply</a>
+          <a href="#">Continue application</a>
+          <a href="#">Check Status</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
