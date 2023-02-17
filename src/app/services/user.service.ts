@@ -35,4 +35,21 @@ export class UserService {
     }
     return null;
   }
+
+  register(email: string, password: string) {
+    if (userLookup.has(email)) {
+      return null;
+      // error email already exist
+    } else {
+      const newUser = {
+        id: (users.length + 1).toString(),
+        email,
+        password,
+      };
+      users.push(newUser);
+
+      userLookup.set(email, newUser);
+      return newUser;
+    }
+  }
 }
