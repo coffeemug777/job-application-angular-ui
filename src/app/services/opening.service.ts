@@ -34,6 +34,10 @@ export class OpeningService {
 
   constructor() {}
 
+  get(id: string) {
+    return this.openings.find((opening) => opening.id === id) || null;
+  }
+
   getAll() {
     return this.openings;
   }
