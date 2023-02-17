@@ -1,1 +1,51 @@
-<p>user-register works!</p>
+<div class="border rounded p-3 mt-5 shadow login-container">
+  <h2>Register</h2>
+  <div class="mb-3 d-flex flex-wrap justify-content-center">
+    <label for="email" class="form-label">Email address</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      placeholder="name@example.com"
+      [(ngModel)]="email"
+    />
+  </div>
+  <div class="mb-3 d-flex flex-wrap justify-content-center">
+    <label for="password" class="form-label">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      placeholder=""
+      [(ngModel)]="password1"
+    />
+  </div>
+  <div class="mb-3 d-flex flex-wrap justify-content-center">
+    <label for="password" class="form-label">Confirm Password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      placeholder=""
+      [(ngModel)]="password2"
+    />
+  </div>
+  <div class="d-flex justify-content-between">
+    <button
+      (click)="cancelClick()"
+      type="button"
+      class="btn btn-primary flex-grow-1 me-3"
+    >
+      Cancel
+    </button>
+    <button
+      (click)="submitClick()"
+      type="button"
+      class="btn btn-primary flex-grow-1"
+    >
+      Submit
+    </button>
+
+    <!-- {{ email }} {{ password }} -->
+  </div>
+</div>
