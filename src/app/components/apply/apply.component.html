@@ -32,6 +32,15 @@
       aria-describedby="basic-addon1"
       formControlName="firstName"
     />
+    <div
+      class="input-error-message"
+      *ngIf="
+        submitted &&
+        applicationFormControl['firstName'].errors?.['required']
+      "
+    >
+      First Name is required
+    </div>
   </div>
 
   <div class="input-group mb-3">
@@ -44,6 +53,15 @@
       aria-describedby="basic-addon2"
       formControlName="lastName"
     />
+    <div
+      class="input-error-message"
+      *ngIf="
+        submitted &&
+        applicationFormControl['lastName'].errors?.['required']
+      "
+    >
+      Last Name is required
+    </div>
   </div>
 
   <div class="input-group mb-3">
@@ -57,6 +75,15 @@
       aria-describedby="basic-addon3"
       formControlName="email"
     />
+    <div
+      class="input-error-message"
+      *ngIf="
+        submitted &&
+        applicationFormControl['email'].errors?.['required']
+      "
+    >
+      Email is required
+    </div>
   </div>
 
   <div class="input-group mb-3">
@@ -69,6 +96,15 @@
       aria-describedby="basic-addon4"
       formControlName="phone"
     />
+    <div
+      class="input-error-message"
+      *ngIf="
+        submitted &&
+        applicationFormControl['phone'].errors?.['required']
+      "
+    >
+      Phone is required
+    </div>
   </div>
 
   <div formArrayName="exps">
@@ -201,4 +237,8 @@
   <button [routerLink]="['/dashboard']" class="btn btn-warning">
     Back to Openings
   </button>
+
+  <div>
+    {{ opening | json }}
+  </div>
 </form>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Form, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { Opening, OpeningService } from 'src/app/services/opening.service';
@@ -14,6 +14,9 @@ export class ApplyComponent {
   opening: Opening | null = null;
 
   applicationForm: FormGroup;
+  generalError = '';
+
+  submitted = false;
 
   constructor(
     private router: ActivatedRoute,
@@ -21,10 +24,10 @@ export class ApplyComponent {
     private fb: FormBuilder
   ) {
     this.applicationForm = this.fb.group({
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', Validators.required],
+      phone: ['', Validators.required],
       exps: this.fb.array([]),
     });
   }
@@ -49,7 +52,18 @@ export class ApplyComponent {
   }
 
   submitClick() {
-    console.log(this.experiences);
+    //console.log(this.applicationForm.value);
+    this.submitted = true;
+
+    if (!this.applicationForm.value.exps.length) {
+      this.generalError = 'You must add at least one experience';
+      console.log(this.generalError);
+    } else {
+      this.openingService.addApplication(
+        this.openingId,
+        this.applicationForm.value
+      );
+    }
   }
 
   async ngOnInit() {
@@ -63,5 +77,9 @@ export class ApplyComponent {
 
   get experiences(): FormArray {
     return this.applicationForm.get('exps') as FormArray;
+  }
+
+  get applicationFormControl() {
+    return this.applicationForm.controls;
   }
 }
