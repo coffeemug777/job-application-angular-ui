@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 
 export type Application = {
+  id: string;
   userId: string;
+  firstName: '';
+  lastName: '';
+  email: '';
+  phone: '';
+  exps: Experience[];
 };
 
 export type Opening = {
@@ -9,6 +15,15 @@ export type Opening = {
   title: string;
   description: string;
   applications: Application[];
+};
+
+export type Experience = {
+  company: '';
+  title: '';
+  startDate: '';
+  endDate: '';
+  description: '';
+  isCurrent: false;
 };
 
 @Injectable({
@@ -41,4 +56,16 @@ export class OpeningService {
   getAll() {
     return this.openings;
   }
+
+  addApplication(id: string, value: Application) {
+    console.log('from service add ', id, value);
+    const theOpening = this.openings.find((opening) => opening.id === id);
+    if (theOpening) {
+      theOpening.applications.push(value);
+    } else {
+      console.log('error opening id not found');
+    }
+  }
+
+  removeApplication() {}
 }
