@@ -106,7 +106,6 @@
       Phone is required
     </div>
   </div>
-
   <div formArrayName="exps">
     <div
       *ngFor="let experience of experiences.controls; let expIndex = index"
@@ -145,6 +144,12 @@
             aria-describedby="company-name1"
             formControlName="company"
           />
+          <div
+            *ngIf="submitted && experience.get('company')?.errors?.['required']"
+            class="input-error-message"
+          >
+            Company is required
+          </div>
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text" id="title2">Title</span>
@@ -156,6 +161,12 @@
             aria-describedby="title2"
             formControlName="title"
           />
+          <div
+            *ngIf="submitted && experience.get('title')?.errors?.['required']"
+            class="input-error-message"
+          >
+            Title is required
+          </div>
         </div>
 
         <div class="input-group mb-3">
@@ -167,6 +178,12 @@
             aria-describedby="start-date1"
             formControlName="startDate"
           />
+          <div
+            *ngIf="submitted && experience.get('startDate')?.errors?.['required']"
+            class="input-error-message"
+          >
+            Start Date is required
+          </div>
         </div>
 
         <div class="input-group mb-3">
@@ -229,6 +246,9 @@
         />
       </svg>
     </button>
+  </div>
+  <div class="input-error-message mb-3" *ngIf="generalError !== ''">
+    {{ generalError }}
   </div>
 
   <button (click)="submitClick()" class="btn btn-primary me-3">

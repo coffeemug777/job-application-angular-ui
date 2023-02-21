@@ -24,30 +24,36 @@ export class ApplyComponent {
     private fb: FormBuilder
   ) {
     this.applicationForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', Validators.required],
-      phone: ['', Validators.required],
+      firstName: ['John', Validators.required],
+      lastName: ['Doe', Validators.required],
+      email: ['indocoffee@gmail.com', Validators.required],
+      phone: ['1111111111', Validators.required],
       exps: this.fb.array([]),
     });
   }
 
   newExperience() {
     return this.fb.group({
-      company: '',
-      title: '',
-      startDate: '',
+      company: ['comp 1', Validators.required],
+      title: ['title 1', Validators.required],
+      startDate: ['03/01/2020', Validators.required],
       endDate: '',
-      description: '',
-      isCurrent: false,
+      description: 'test some descripton',
+      isCurrent: true,
     });
   }
 
   addExperience() {
+    this.generalError = '';
     return this.experiences.push(this.newExperience());
   }
 
   removeExperience(expIndex: number) {
+    if (!this.applicationForm.value.exps.length) {
+      this.generalError = 'You must add at least one experience';
+      console.log(this.generalError);
+    }
+
     this.experiences.removeAt(expIndex);
   }
 
