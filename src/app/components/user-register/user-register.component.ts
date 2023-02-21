@@ -18,15 +18,18 @@ export class UserRegisterComponent {
     this.router.navigate(['login']);
   }
 
-  submitClick() {
+  async submitClick() {
     if (
       this.email !== '' &&
       this.password1 !== '' &&
       this.password2 !== '' &&
       this.password1 === this.password2
     ) {
-      const register = this.userService.register(this.email, this.password1);
-      if (register) {
+      const register = await this.userService.register(
+        this.email,
+        this.password1
+      );
+      if (register === true) {
         this.router.navigate(['dashboard'], { state: { user: register } });
       } else {
         console.log('error email already in use');
