@@ -26,7 +26,6 @@ export class UserService {
   constructor() {}
 
   login(email: string, password: string) {
-    console.log('service ', email, password);
     if (
       userLookup.has(email) &&
       userLookup.get(email)['password'] === password

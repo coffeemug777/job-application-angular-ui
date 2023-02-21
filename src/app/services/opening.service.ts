@@ -58,12 +58,10 @@ export class OpeningService {
   }
 
   addApplication(id: string, value: Application) {
-    console.log('from service add ', id, value);
     const theOpening = this.openings.find((opening) => opening.id === id);
     if (theOpening) {
       theOpening.applications.push(value);
     } else {
-      console.log('error opening id not found');
     }
   }
 

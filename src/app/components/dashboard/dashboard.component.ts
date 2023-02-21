@@ -14,7 +14,6 @@ export class DashboardComponent {
   constructor(private router: Router) {
     const routerExtraState = this.router.getCurrentNavigation()?.extras?.state;
     if (routerExtraState && routerExtraState['user']) {
-      //console.log('wa ', routerExtraState['user']);
       this.user = routerExtraState['user'];
     }
   }
