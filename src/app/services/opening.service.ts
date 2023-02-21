@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { UserService } from './user.service';
 
 export type Application = {
   id: string;
@@ -47,7 +48,7 @@ export class OpeningService {
     },
   ];
 
-  constructor() {}
+  constructor(private userService: UserService) {}
 
   get(id: string) {
     return this.openings.find((opening) => opening.id === id) || null;
@@ -58,8 +59,11 @@ export class OpeningService {
   }
 
   addApplication(id: string, value: Application) {
+    const user = this.userService.getCurrentUser();
     const theOpening = this.openings.find((opening) => opening.id === id);
-    if (theOpening) {
+
+    if (theOpening && user) {
+      value.userId = user.id;
       theOpening.applications.push(value);
     } else {
     }
