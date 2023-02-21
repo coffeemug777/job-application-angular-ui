@@ -19,6 +19,7 @@ export class UserLoginComponent {
       const user = this.userService.login(this.email, this.password);
       console.log('login is ', user);
       if (user) {
+        this.userService.markCurrentUser(user);
         //redirect to dashboard;
         this.router.navigate(['dashboard'], { state: { user: user } });
       }

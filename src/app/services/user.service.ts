@@ -23,7 +23,16 @@ users.forEach((user) => {
   providedIn: 'root',
 })
 export class UserService {
+  currentUser: UserInfo | null = null;
   constructor() {}
+
+  markCurrentUser(user: UserInfo) {
+    this.currentUser = user;
+  }
+
+  getCurrentUser() {
+    return this.currentUser;
+  }
 
   login(email: string, password: string) {
     if (
