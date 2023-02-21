@@ -11,6 +11,7 @@ export class UserRegisterComponent {
   email = '';
   password1 = '';
   password2 = '';
+  errorMsg = '';
 
   constructor(private router: Router, private userService: UserService) {}
 
@@ -33,10 +34,12 @@ export class UserRegisterComponent {
         this.router.navigate(['dashboard'], { state: { user: register } });
       } else {
         console.log('error email already in use');
+        this.errorMsg = 'Error: email already in use';
       }
     } else {
       // error blank, or password1 not equal password 2
       console.log('error blank, or password1 not equal password 2');
+      this.errorMsg = 'Error: blank, or password1 not equal password 2';
     }
   }
 }

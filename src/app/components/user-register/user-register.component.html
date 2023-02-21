@@ -45,7 +45,9 @@
     >
       Submit
     </button>
-
     <!-- {{ email }} {{ password }} -->
+  </div>
+  <div class="alert alert-danger mt-3" *ngIf="errorMsg !== ''">
+    {{ errorMsg }}
   </div>
 </div>
