@@ -14,6 +14,7 @@ import { StoreModule } from '@ngrx/store';
 import * as userReducer from './stores/user.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     NgbModule,
     StoreModule.forRoot({ user: userReducer.reducer }, {}),
     StoreDevtoolsModule.instrument({
