@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 import { UserInfo } from '../stores/user.reducer';
 
 const users: UserInfo[] = [
@@ -19,12 +21,14 @@ users.forEach((user) => {
   userLookup.set(user.email, user);
 });
 
+const userApiUrl = 'http://localhost:8080/api/user/';
+
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   currentUser: UserInfo | null = null;
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   markCurrentUser(user: UserInfo) {
     this.currentUser = user;
@@ -44,20 +48,15 @@ export class UserService {
     return null;
   }
 
-  register(email: string, password: string) {
+  async register(email: string, password: string): Promise<boolean | null> {
     if (userLookup.has(email)) {
       return null;
       // error email already exist
     } else {
-      const newUser = {
-        id: (users.length + 1).toString(),
-        email,
-        password,
-      };
-      users.push(newUser);
-
-      userLookup.set(email, newUser);
-      return newUser;
+      const response = await firstValueFrom(
+        this.http.post(userApiUrl + 'register', { email, password })
+      );
+      return response as boolean;
     }
   }
 }
