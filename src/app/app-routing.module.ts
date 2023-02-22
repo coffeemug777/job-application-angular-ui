@@ -15,10 +15,12 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [IsLoggedInGuard],
   },
   {
     path: 'register',
     component: UserRegisterComponent,
+    canActivate: [IsLoggedInGuard],
   },
   {
     path: 'login',
@@ -27,6 +29,7 @@ const routes: Routes = [
   {
     path: 'apply/:id',
     component: ApplyComponent,
+    canActivate: [IsLoggedInGuard],
   },
 ];
 
