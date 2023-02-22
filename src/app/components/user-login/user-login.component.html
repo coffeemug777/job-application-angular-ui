@@ -38,4 +38,9 @@
 
     <!-- {{ email }} {{ password }} -->
   </div>
+  <div class="alert alert-danger mt-3" *ngIf="errorMsg.length">
+    <ul>
+      <li *ngFor="let msg of errorMsg; index as i" id="i">{{ msg }}</li>
+    </ul>
+  </div>
 </div>
