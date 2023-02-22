@@ -20,7 +20,16 @@ export class UserService {
     return this.currentUser;
   }
 
-  login(email: string, password: string) {
+  async login(email: string, password: string) {
+    try {
+      const response = await firstValueFrom(
+        this.http.post(userApiUrl + 'login', { email, password })
+      );
+      return response;
+    } catch (error: any) {
+      return {
+        error: error.error.errorMessage,
+      };
     }
   }
 
