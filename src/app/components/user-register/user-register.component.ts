@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { validateEmail } from 'src/app/shared/utils/functions';
 
 @Component({
   selector: 'app-user-register',
@@ -19,14 +20,6 @@ export class UserRegisterComponent {
     this.router.navigate(['login']);
   }
 
-  validateEmail(email: string) {
-    return String(email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-  }
-
   async submitClick() {
     if (
       this.email !== '' &&
@@ -35,7 +28,7 @@ export class UserRegisterComponent {
       this.password1 === this.password2 &&
       this.password1.length >= 8
     ) {
-      if (this.validateEmail(this.email)) {
+      if (validateEmail(this.email)) {
         const register = await this.userService.register(
           this.email,
           this.password1
