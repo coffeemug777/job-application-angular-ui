@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { validateEmail } from 'src/app/shared/utils/functions';
+import { UserInfo } from 'src/app/stores/user.reducer';
 
 @Component({
   selector: 'app-user-login',
@@ -30,7 +31,7 @@ export class UserLoginComponent {
     if (this.errorMsg.length === 0) {
       const user = await this.userService.login(this.email, this.password);
       if (!(user as { error: any }).error) {
-        this.userService.markCurrentUser(user);
+        this.userService.markCurrentUser(user as UserInfo);
         //redirect to dashboard;
         this.router.navigate(['dashboard'], { state: { user: user } });
       } else {

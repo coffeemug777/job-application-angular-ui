@@ -12,7 +12,7 @@ export class UserService {
   currentUser: UserInfo | null = null;
   constructor(private http: HttpClient) {}
 
-  markCurrentUser(user: any) {
+  markCurrentUser(user: UserInfo) {
     this.currentUser = user;
   }
 

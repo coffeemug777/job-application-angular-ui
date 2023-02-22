@@ -63,7 +63,7 @@ export class OpeningService {
     const theOpening = this.openings.find((opening) => opening.id === id);
 
     if (theOpening && user) {
-      value.userId = user.id;
+      value.userId = user.email;
       theOpening.applications.push(value);
     } else {
     }
