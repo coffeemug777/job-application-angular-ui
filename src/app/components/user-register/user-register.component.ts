@@ -19,6 +19,14 @@ export class UserRegisterComponent {
     this.router.navigate(['login']);
   }
 
+  validateEmail(email: string) {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  }
+
   async submitClick() {
     if (
       this.email !== '' &&
@@ -26,15 +34,19 @@ export class UserRegisterComponent {
       this.password2 !== '' &&
       this.password1 === this.password2
     ) {
-      const register = await this.userService.register(
-        this.email,
-        this.password1
-      );
-      if (register === true) {
-        this.router.navigate(['dashboard'], { state: { user: register } });
+      if (this.validateEmail(this.email)) {
+        const register = await this.userService.register(
+          this.email,
+          this.password1
+        );
+        if (register === true) {
+          this.router.navigate(['dashboard'], { state: { user: register } });
+        } else {
+          console.log('error email already in use');
+          this.errorMsg = 'Error: email already in use';
+        }
       } else {
-        console.log('error email already in use');
-        this.errorMsg = 'Error: email already in use';
+        this.errorMsg = 'Error: invalid email format';
       }
     } else {
       // error blank, or password1 not equal password 2
