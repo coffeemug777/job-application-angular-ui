@@ -15,7 +15,7 @@ export class UserLoginComponent {
 
   constructor(private userService: UserService, private router: Router) {}
 
-  loginClick() {
+  async loginClick() {
     this.errorMsg = [];
     if (this.password === '' || this.email === '') {
       this.errorMsg.push('Error: email or password can not be blank');
@@ -28,11 +28,13 @@ export class UserLoginComponent {
     }
 
     if (this.errorMsg.length === 0) {
-      const user = this.userService.login(this.email, this.password);
-      if (user) {
+      const user = await this.userService.login(this.email, this.password);
+      if (!(user as { error: any }).error) {
         this.userService.markCurrentUser(user);
         //redirect to dashboard;
         this.router.navigate(['dashboard'], { state: { user: user } });
+      } else {
+        this.errorMsg.push((user as { error: any }).error);
       }
     }
   }
