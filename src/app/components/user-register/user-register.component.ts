@@ -32,7 +32,8 @@ export class UserRegisterComponent {
       this.email !== '' &&
       this.password1 !== '' &&
       this.password2 !== '' &&
-      this.password1 === this.password2
+      this.password1 === this.password2 &&
+      this.password1.length >= 8
     ) {
       if (this.validateEmail(this.email)) {
         const register = await this.userService.register(
@@ -51,7 +52,8 @@ export class UserRegisterComponent {
     } else {
       // error blank, or password1 not equal password 2
       console.log('error blank, or password1 not equal password 2');
-      this.errorMsg = 'Error: blank, or password1 not equal password 2';
+      this.errorMsg =
+        'Error: field is blank, or password1 not equal password 2, or password is less than 8 characters';
     }
   }
 }
