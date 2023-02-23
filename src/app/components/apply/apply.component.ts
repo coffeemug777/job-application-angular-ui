@@ -57,6 +57,13 @@ export class ApplyComponent {
     this.experiences.removeAt(expIndex);
   }
 
+  saveClick() {
+    this.openingService.saveApplication(
+      this.openingId,
+      this.applicationForm.value
+    );
+  }
+
   submitClick() {
     //console.log(this.applicationForm.value);
     this.submitted = true;
