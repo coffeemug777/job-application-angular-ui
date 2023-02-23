@@ -61,6 +61,17 @@ export class OpeningService {
     return this.openings;
   }
 
+  saveApplication(id: string, value: Application) {
+    const user = this.userService.getCurrentUser();
+    const theOpening = this.openings.find((opening) => opening.id === id);
+
+    if (theOpening && user) {
+      value.userId = user.email;
+      theOpening.incompleteApplications.push(value);
+    } else {
+    }
+  }
+
   addApplication(id: string, value: Application) {
     const user = this.userService.getCurrentUser();
     const theOpening = this.openings.find((opening) => opening.id === id);
