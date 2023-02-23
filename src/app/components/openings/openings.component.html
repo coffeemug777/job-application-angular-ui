@@ -14,9 +14,15 @@
       >
         <td>{{ opening.title }}</td>
         <td>
-          <a [routerLink]="['/apply/' + opening.id + '']">Show Details/Apply</a>
-          <a href="#">Continue application</a>
-          <a href="#">Check Status</a>
+          <a
+            *ngIf="showApply(opening.id)"
+            [routerLink]="['/apply/' + opening.id + '']"
+            >Show Details/Apply</a
+          >
+          &nbsp;
+          <a *ngIf="showContinue(opening.id)" href="#">Continue application</a
+          >&nbsp;
+          <a *ngIf="showCheckStatus(opening.id)" href="#">Check Status</a>&nbsp;
         </td>
       </tr>
     </tbody>
