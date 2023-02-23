@@ -15,6 +15,7 @@ import * as userReducer from './stores/user.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { UserPanelComponent } from './components/user-panel/user-panel.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
     OpeningsComponent,
     StatusComponent,
     ApplyComponent,
+    UserPanelComponent,
   ],
   imports: [
     BrowserModule,
