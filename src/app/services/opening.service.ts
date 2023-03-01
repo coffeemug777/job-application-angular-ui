@@ -41,8 +41,11 @@ export class OpeningService {
 
   constructor(private userService: UserService, private http: HttpClient) {}
 
-  get(id: string) {
-    return this.openings.find((opening) => opening.id === id) || null;
+  async get(id: string) {
+    return (await firstValueFrom(
+      this.http.get(openingServiceUrl + '/' + id)
+    )) as Opening;
+    //return this.openings.find((opening) => opening.id === id) || null;
   }
 
   async getAll() {
