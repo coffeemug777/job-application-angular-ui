@@ -84,7 +84,7 @@ export class ApplyComponent {
     this.openingId = params['id'] ? params['id'] : '';
 
     if (this.openingId !== '') {
-      this.opening = this.openingService.get(this.openingId);
+      this.opening = await this.openingService.get(this.openingId);
     }
   }
 
