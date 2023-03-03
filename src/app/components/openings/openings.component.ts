@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { Opening, OpeningService } from 'src/app/services/opening.service';
+import {
+  ApplicationConnector,
+  Opening,
+  OpeningService,
+} from 'src/app/services/opening.service';
 import { UserService } from 'src/app/services/user.service';
 import { UserInfo } from 'src/app/stores/user.reducer';
 
@@ -21,7 +25,8 @@ export class OpeningsComponent {
       this.openings
         .find((opening) => opening.id === openingId)
         ?.incompleteApplications.find(
-          (application) => application.userId === this.currentUser?.email
+          (application: ApplicationConnector) =>
+            application.email === this.currentUser?.email
         ) !== undefined
     );
   }
@@ -31,13 +36,17 @@ export class OpeningsComponent {
       this.openings
         .find((opening) => opening.id === openingId)
         ?.completedApplications.find(
-          (application) => application.userId === this.currentUser?.email
+          (application: ApplicationConnector) =>
+            application.email === this.currentUser?.email
         ) !== undefined
     );
   }
 
   showApply(openingId: string) {
-    return !this.showContinue(openingId) && !this.showCheckStatus(openingId);
+    return (
+      !this.showContinue(openingId.toString()) &&
+      !this.showCheckStatus(openingId.toString())
+    );
   }
 
   async ngOnInit() {
