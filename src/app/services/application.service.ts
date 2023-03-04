@@ -9,8 +9,10 @@ const applicationServiceUrl = 'http://localhost:8081/api/application';
 export class ApplicationService {
   constructor(private http: HttpClient) {}
 
-  getById(appId: string) {
-    return this.http.get(applicationServiceUrl + '/' + appId);
+  getById(appId: string): Observable<Application> {
+    return this.http.get(
+      applicationServiceUrl + '/' + appId
+    ) as Observable<Application>;
   }
 
   add(value: Application): Observable<Application> {
@@ -20,7 +22,10 @@ export class ApplicationService {
     ) as Observable<Application>;
   }
 
-  update(id: string, value: Application) {
-    return this.http.put(applicationServiceUrl + '/update/' + id, value);
+  update(id: string, value: Application): Observable<Application> {
+    return this.http.put(
+      applicationServiceUrl + '/update/' + id,
+      value
+    ) as Observable<Application>;
   }
 }
