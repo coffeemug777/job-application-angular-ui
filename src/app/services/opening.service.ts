@@ -17,8 +17,8 @@ export type Opening = {
   id: string;
   title: string;
   description: string;
-  completedApplications: Application[];
-  incompleteApplications: Application[];
+  completedApplications: ApplicationConnector[];
+  incompleteApplications: ApplicationConnector[];
 };
 
 export type Experience = {
@@ -30,7 +30,11 @@ export type Experience = {
   isCurrent: false;
 };
 
-const applicationServiceUrl = 'http://localhost:8081/api/application';
+export type ApplicationConnector = {
+  applicationId: string;
+  email: string;
+};
+
 const openingServiceUrl = 'http://localhost:8082/api/opening';
 
 @Injectable({
