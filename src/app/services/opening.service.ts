@@ -49,7 +49,6 @@ export class OpeningService {
     return (await firstValueFrom(
       this.http.get(openingServiceUrl + '/' + id)
     )) as Opening;
-    //return this.openings.find((opening) => opening.id === id) || null;
   }
 
   async getAll() {
@@ -72,16 +71,7 @@ export class OpeningService {
     }
   }
 
-  addApplication(id: string, value: Application) {
-    const user = this.userService.getCurrentUser();
-    const theOpening = this.openings.find((opening) => opening.id === id);
 
-    if (theOpening && user) {
-      value.userId = user.email;
-      theOpening.completedApplications.push(value);
-    } else {
-    }
   }
 
-  removeApplication() {}
 }
