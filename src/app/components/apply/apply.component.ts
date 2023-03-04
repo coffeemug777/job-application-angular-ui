@@ -57,8 +57,8 @@ export class ApplyComponent {
     this.experiences.removeAt(expIndex);
   }
 
-  saveClick() {
-    this.openingService.saveApplication(
+  async saveClick() {
+    await this.openingService.saveApplication(
       this.openingId,
       this.applicationForm.value
     );
