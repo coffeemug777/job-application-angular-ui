@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
+import { ApplicationService } from 'src/app/services/application.service';
 import {
+  Application,
   ApplicationConnector,
   Opening,
   OpeningService,
@@ -14,21 +17,30 @@ import { UserInfo } from 'src/app/stores/user.reducer';
 })
 export class OpeningsComponent {
   openings: Opening[] = [];
+  application: Application | null = null;
   currentUser: UserInfo | null = null;
+
   constructor(
     private openingService: OpeningService,
+    private applicationService: ApplicationService,
     private userService: UserService
   ) {}
 
-  showContinue(openingId: string) {
-    return (
-      this.openings
-        .find((opening) => opening.id === openingId)
-        ?.incompleteApplications.find(
-          (application: ApplicationConnector) =>
-            application.email === this.currentUser?.email
-        ) !== undefined
-    );
+  async showContinue(openingId: string) {
+    const existApplication = this.openings
+      .find((opening) => opening.id === openingId)
+      ?.incompleteApplications.find(
+        (application: ApplicationConnector) =>
+          application.email === this.currentUser?.email
+      );
+
+    if (existApplication !== undefined) {
+      this.application = await firstValueFrom(
+        this.applicationService.getById(existApplication.applicationId)
+      );
+    }
+
+    return existApplication !== undefined;
   }
 
   showCheckStatus(openingId: string) {

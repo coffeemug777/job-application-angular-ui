@@ -20,7 +20,11 @@
             >Show Details/Apply</a
           >
           &nbsp;
-          <a *ngIf="showContinue(opening.id)" href="#">Continue application</a
+          <a
+            *ngIf="showContinue(opening.id)"
+            [routerLink]="['/apply/' + opening.id + '']"
+            [state]="{application, opening}"
+            >Continue application</a
           >&nbsp;
           <a *ngIf="showCheckStatus(opening.id)" href="#">Check Status</a>&nbsp;
         </td>
