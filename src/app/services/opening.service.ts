@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
+import { ApplicationService } from './application.service';
 import { UserService } from './user.service';
 
 export type Application = {
@@ -43,7 +44,11 @@ const openingServiceUrl = 'http://localhost:8082/api/opening';
 export class OpeningService {
   openings: Opening[] = [];
 
-  constructor(private userService: UserService, private http: HttpClient) {}
+  constructor(
+    private userService: UserService,
+    private applicationService: ApplicationService,
+    private http: HttpClient
+  ) {}
 
   async get(id: string) {
     return (await firstValueFrom(
