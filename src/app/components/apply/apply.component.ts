@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
-import { Opening, OpeningService } from 'src/app/services/opening.service';
+import { Router } from '@angular/router';
+import {
+  Application,
+  Opening,
+  OpeningService,
+} from 'src/app/services/opening.service';
 
 @Component({
   selector: 'app-apply',
@@ -12,6 +15,7 @@ import { Opening, OpeningService } from 'src/app/services/opening.service';
 export class ApplyComponent {
   openingId: string = '';
   opening: Opening | null = null;
+  existingApplication: Application | null = null;
 
   applicationForm: FormGroup;
   generalError = '';
@@ -19,17 +23,38 @@ export class ApplyComponent {
   submitted = false;
 
   constructor(
-    private router: ActivatedRoute,
+    private router: Router,
     private openingService: OpeningService,
     private fb: FormBuilder
   ) {
-    this.applicationForm = this.fb.group({
-      firstName: ['John', Validators.required],
-      lastName: ['Doe', Validators.required],
-      email: ['indocoffee@gmail.com', Validators.required],
-      phone: ['1111111111', Validators.required],
-      exps: this.fb.array([]),
-    });
+    if (this.router.getCurrentNavigation()?.extras?.state?.['opening']) {
+      this.opening =
+        this.router.getCurrentNavigation()?.extras?.state?.['opening'];
+      this.openingId = this.opening?.id || '';
+    }
+
+    if (this.router.getCurrentNavigation()?.extras?.state?.['application']) {
+      this.existingApplication =
+        this.router.getCurrentNavigation()?.extras?.state?.['application'];
+
+      this.applicationForm = this.fb.group({
+        firstName: [this.existingApplication?.firstName, Validators.required],
+        lastName: [this.existingApplication?.lastName, Validators.required],
+        email: [this.existingApplication?.email, Validators.required],
+        phone: [this.existingApplication?.phone, Validators.required],
+
+        //TODO Need to do manual input on this....
+        exps: this.fb.array([]),
+      });
+    } else {
+      this.applicationForm = this.fb.group({
+        firstName: ['John', Validators.required],
+        lastName: ['Doe', Validators.required],
+        email: ['indocoffee@gmail.com', Validators.required],
+        phone: ['1111111111', Validators.required],
+        exps: this.fb.array([]),
+      });
+    }
   }
 
   newExperience() {
@@ -58,6 +83,7 @@ export class ApplyComponent {
   }
 
   async saveClick() {
+    console.log('adsf ', this.openingId.toString(), this.applicationForm.value);
     await this.openingService.saveApplication(
       this.openingId,
       this.applicationForm.value
@@ -65,26 +91,16 @@ export class ApplyComponent {
   }
 
   submitClick() {
-    //console.log(this.applicationForm.value);
     this.submitted = true;
 
     if (!this.applicationForm.value.exps.length) {
       this.generalError = 'You must add at least one experience';
       console.log(this.generalError);
     } else {
-      this.openingService.addApplication(
-        this.openingId,
-        this.applicationForm.value
-      );
-    }
-  }
-
-  async ngOnInit() {
-    const params = await firstValueFrom(this.router.params);
-    this.openingId = params['id'] ? params['id'] : '';
-
-    if (this.openingId !== '') {
-      this.opening = await this.openingService.get(this.openingId);
+      // this.openingService.addApplication(
+      //   this.openingId,
+      //   this.applicationForm.value
+      // );
     }
   }
 
