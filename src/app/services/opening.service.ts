@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
+import { UserInfo } from '../stores/user.reducer';
 import { ApplicationService } from './application.service';
 import { UserService } from './user.service';
 
@@ -65,18 +66,75 @@ export class OpeningService {
     return this.openings;
   }
 
-  saveApplication(id: string, value: Application) {
-    const user = this.userService.getCurrentUser();
-    const theOpening = this.openings.find((opening) => opening.id === id);
+  /*
+      loop through opening incomplete application and complete application, make sure none of the application connector there exist,
+        if it exist in complete, show error message already applied
+        if it exist in incomplete, 
+          overwrite the application data only
+        if it doesn't exist, create a new application, and add to incomplete
+    */
+  async saveApplication(id: string, value: Application) {
+    const [user, theOpening] = await Promise.all([
+      this.userService.getCurrentUser(),
+      this.get(id),
+    ]);
 
     if (theOpening && user) {
-      value.userId = user.email;
-      theOpening.incompleteApplications.push(value);
+      const alreadyComplete =
+        theOpening.completedApplications.find(
+          (app) => app.email === user.email
+        ) !== undefined;
+
+      if (alreadyComplete) {
+        this.alreadyApplied();
+      } else {
+        const foundIncomplete = theOpening.incompleteApplications.find(
+          (app) => app.email === user.email
+        );
+
+        if (!!foundIncomplete) {
+          await this.updateExistingApplication(foundIncomplete, value);
+        } else {
+          await this.createNewApplication(value, user, theOpening, id);
+        }
+      }
     } else {
+      console.log('either user or opening gave an error!');
     }
   }
 
-
+  alreadyApplied() {
+    console.log('user already completed application');
   }
 
+  async updateExistingApplication(
+    foundIncomplete: ApplicationConnector,
+    value: Application
+  ) {
+    await firstValueFrom(
+      this.applicationService.update(foundIncomplete.applicationId, value)
+    );
+  }
+
+  async createNewApplication(
+    value: Application,
+    user: UserInfo,
+    theOpening: Opening,
+    id: string
+  ) {
+    const newApp = await firstValueFrom(
+      this.applicationService.add({ ...value, userId: user.email })
+    );
+
+    if (newApp.id !== null) {
+      theOpening.incompleteApplications.push({
+        applicationId: newApp.id,
+        email: user.email,
+      });
+
+      await firstValueFrom(
+        this.http.put(openingServiceUrl + '/update/' + id, theOpening)
+      );
+    }
+  }
 }
