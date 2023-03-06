@@ -10,10 +10,12 @@ const userApiUrl = 'http://localhost:8080/api/user/';
   providedIn: 'root',
 })
 export class UserService {
-  currentUser: UserInfo | null = {
-    email: 'indocoffee@gmail.com',
-    password: 'test123',
-  };
+  currentUser: UserInfo | null = null;
+
+  // currentUser: UserInfo | null = {
+  //   email: 'indocoffee@gmail.com',
+  //   password: 'test123',
+  // };
   constructor(private http: HttpClient, private router: Router) {}
 
   markCurrentUser(user: UserInfo) {
@@ -26,9 +28,7 @@ export class UserService {
 
   async login(email: string, password: string) {
     try {
-      const response = await firstValueFrom(
-        this.http.post(userApiUrl + 'login', { email, password })
-      );
+      const response = await firstValueFrom(this.http.post(userApiUrl + 'login', { email, password }));
       return response;
     } catch (error: any) {
       return {
@@ -43,9 +43,7 @@ export class UserService {
   }
 
   async register(email: string, password: string): Promise<boolean | null> {
-    const response = await firstValueFrom(
-      this.http.post(userApiUrl + 'register', { email, password })
-    );
+    const response = await firstValueFrom(this.http.post(userApiUrl + 'register', { email, password }));
     return response as boolean;
   }
 }
