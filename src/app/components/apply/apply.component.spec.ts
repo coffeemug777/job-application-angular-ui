@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ApplyComponent } from './apply.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ApplyComponent', () => {
   let component: ApplyComponent;
@@ -8,9 +10,9 @@ describe('ApplyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ApplyComponent ]
-    })
-    .compileComponents();
+      declarations: [ApplyComponent],
+      imports: [HttpClientTestingModule, ReactiveFormsModule, RouterTestingModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ApplyComponent);
     component = fixture.componentInstance;
