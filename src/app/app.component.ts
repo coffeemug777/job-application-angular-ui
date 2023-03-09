@@ -10,13 +10,4 @@ import { User } from './stores/user.reducer';
 })
 export class AppComponent {
   title = 'angular-ui';
-  constructor(private store: Store<User>) {}
-
-  async ngOnInit() {
-    const userFromStore = await firstValueFrom(this.store);
-    if (userFromStore.userLoggedIn) {
-      console.log('redirect to dash');
-      //redirect to dashboard
-    }
-  }
 }
